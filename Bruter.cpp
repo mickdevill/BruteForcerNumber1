@@ -143,19 +143,8 @@ int Bruter::bruteItHead() {
 
 }
 
-void Bruter::bruteItManin() {
-
-    int charFromSymbsPoss = this->charFromSymbsInPasword.size() - 1;
-    int curInPassword = this->pasword.size() - 1;
-
-    while (true) {
-
-        bruteItHead();
-        continue;
-    }
 
 
-}
 
 int Bruter::bruteItBody(int charFromSymbsPoss, int curInPassword) {
 
@@ -189,15 +178,21 @@ int Bruter::bruteItBody(int charFromSymbsPoss, int curInPassword) {
 
 }
 
+void Bruter::bruteItManin() {
 
 
 
+    while (true) {
+
+        bruteItHead();
+
+        if (this->charFromSymbsInPasword[0] >= this->symbs.size() - 1) {
+            break;
+        }
+    }
 
 
-
-
-
-
+}
 
 
 
