@@ -1,0 +1,40 @@
+/*
+    if (k3 <= nSize) {
+        k3++;
+        k[3] = n[k3];
+        goto start;
+    } else {
+        k2++;
+        k3 = 0;
+    }
+
+
+    if (k2 <= nSize) {
+        k[2] = n[k2];
+        goto start;
+    } else {
+        k1++;
+        k2 = 0;
+    }
+
+    if (k1 <= nSize) {
+        k[1] = n[k1];
+        goto start;
+    } else {
+        k0++;
+        k1 = 0;
+
+
+    }
+
+
+    if (k0 <= nSize) {
+
+        k[0] = n[k0];
+
+        goto start;
+
+    } else {
+        std::cout << totalIter;
+    }
+*/

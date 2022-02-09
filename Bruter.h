@@ -9,15 +9,26 @@
 #include <vector>
 #include <string>
 
-class bruter {
+class Bruter {
 
 public:
-    bruter(int length, bool azOnOff = true, bool AZonOff = false, bool secial = false);
+    Bruter(int length, bool azOnOff, bool AZonOff, bool secial);
 
 public:
-    bruter(int length, bool ALLonBeCarefullYouCanBurnYourCPU = false);
+    Bruter(int length, bool ALLonBeCarefullYouCanBurnYourCPU = false);
 
-private:void initSymbs();
+private:
+    void initSymbs();
+
+private:
+    void bruteItHead();
+
+private:
+    void bruteItBody(int charFromSymbsPoss, int curInPassword);
+
+private:
+    void initPasword();
+
 
 private:
     int lenght;
@@ -31,7 +42,7 @@ private:
 private:
     std::vector<char> pasword;
 private:
-    std::vector<int> charFromSymbs;
+    std::vector<int> charFromSymbsInPasword;
 private:
     std::vector<char> symbs;
 

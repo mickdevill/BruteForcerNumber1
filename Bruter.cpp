@@ -3,24 +3,25 @@
 //
 
 #include <iostream>
-#include "bruter.h"
+#include "Bruter.h"
 
 
-bruter::bruter(int length, bool azOnOff, bool AZonOff, bool secial) {
+Bruter::Bruter(int length, bool azOnOff, bool AZonOff, bool secial) {
     this->lenght = length;
     this->azOnOff = azOnOff;
     this->AZonOff = AZonOff;
     this->secial = secial;
     initSymbs();
+    initPasword();
 
-    for (int i = 0; i < this->symbs.size() + 1; i++) {
+    for (int i = 0; i < this->symbs.size(); i++) {
         std::cout << this->symbs[i] << '\n';
     }
 
 }
 
 
-bruter::bruter(int length, bool ALLonBeCarefullYouCanBurnYourCPU) {
+Bruter::Bruter(int length, bool ALLonBeCarefullYouCanBurnYourCPU) {
 
     this->lenght = length;
 
@@ -34,71 +35,149 @@ bruter::bruter(int length, bool ALLonBeCarefullYouCanBurnYourCPU) {
         this->secial = false;
     }
     initSymbs();
+    initPasword();
 
-    for (int i = 0; i < this->symbs.size() + 1; i++) {
-        std::cout << this->symbs[i] << '\n';
-    }
+    // for (int i = 0; i < this->symbs.size(); i++) {
+    //     std::cout << this->symbs[i] << '\n';
+    // }
+
+    bruteItHead();
 }
 
-void bruter::initSymbs() {
+void Bruter::initSymbs() {
     char cur;
 
-    if (this->azOnOff && this->AZonOff, this->secial) {
-        for (int i = 0; i < 128; i++) {
+    if (this->azOnOff) {
+        for (int i = 97; i < 122 + 1; i++) {
             cur = i;
             if (isprint(cur)) {
                 this->symbs.push_back(cur);
-
             }
 
         }
     }
 
-    if (this->azOnOff && this->AZonOff) {
-        for (int i = 97; i < 122; i++) {
+    if (this->AZonOff) {
+        for (int i = 65; i < 90 + 1; i++) {
             cur = i;
             if (isprint(cur)) {
                 this->symbs.push_back(cur);
-            }
-
-        }
-
-        for (int i = 65; i < 90; i++) {
-            cur = i;
-            if (isprint(cur)) {
-                this->symbs.push_back(cur);
-            }
-
-        }
-
-
-    } else {
-        for (int i = 97; i < 122; i++) {
-            cur = i;
-            if (isprint(cur)) {
-                this->symbs.push_back(cur);
-
             }
 
         }
     }
 
+    if (this->secial) {
+
+        for (int i = 0; i < 64 + 1; i++) {
+            cur = i;
+            if (isprint(cur)) {
+                this->symbs.push_back(cur);
+            }
+
+        }
+
+        for (int i = 91; i < 96 + 1; i++) {
+            cur = i;
+            if (isprint(cur)) {
+                this->symbs.push_back(cur);
+            }
+
+        }
+        for (int i = 123; i < 126 + 1; i++) {
+            cur = i;
+            if (isprint(cur)) {
+                this->symbs.push_back(cur);
+            }
+
+        }
+
+    }
+
+
+}
+
+void Bruter::initPasword() {
     int charFromSymbsIniter = 0;
 
-    for (int i = 0; i < this->symbs.size() + 1; ++i) {
-        this->charFromSymbs.push_back(charFromSymbsIniter);
+    for (int i = 0; i < this->lenght; i++) {
+        this->charFromSymbsInPasword.push_back(charFromSymbsIniter);
+    }
+
+    for (int i = 0; i < this->lenght; i++) {
+        this->pasword.push_back(this->symbs[0]);
     }
 
 }
 
+void Bruter::bruteItHead() {
+
+    int charFromSymbsPoss = this->charFromSymbsInPasword.size() - 1;
+    int curInPassword = this->pasword.size() - 1;
+
+    start:
+
+    if (this->charFromSymbsInPasword[charFromSymbsPoss] <= this->symbs.size() - 1) {
+
+        // if (chekPSW(psw, k)) {
+        //     goto end;
+        // }
+
+        this->pasword[curInPassword] = symbs[this->charFromSymbsInPasword[charFromSymbsPoss]];
+        this->charFromSymbsInPasword[charFromSymbsPoss]++;
+
+        //totalIter++;
+
+        for (int i = 0; i < this->pasword.size(); i++) {
+            std::cout << this->pasword[i];
+        }
+        std::cout << '\n';
+
+        goto start;
+
+    } else {
+        this->charFromSymbsInPasword[charFromSymbsPoss - 1]++;
+        this->charFromSymbsInPasword[charFromSymbsPoss] = 0;
+         bruteItBody(charFromSymbsPoss - 1, curInPassword - 1);
+    }
+
+
+}
+
+
+void Bruter::bruteItBody(int charFromSymbsPoss,int curInPassword){
 
 
 
+    if (this->charFromSymbsInPasword[charFromSymbsPoss] <= this->symbs.size() - 1) {
+
+        // if (chekPSW(psw, k)) {
+        //     goto end;
+        // }
+
+        this->pasword[curInPassword] = symbs[this->charFromSymbsInPasword[charFromSymbsPoss]];
+        this->charFromSymbsInPasword[charFromSymbsPoss]++;
+
+        //totalIter++;
+
+        for (int i = 0; i < this->pasword.size(); i++) {
+            std::cout << this->pasword[i];
+        }
+        std::cout << '\n';
+
+       bruteItHead();
+
+    } else {
+        this->charFromSymbsInPasword[charFromSymbsPoss - 1]++;
+        this->charFromSymbsInPasword[charFromSymbsPoss] = 0;
+       std::cout << "it Work";
+       bruteItBody(charFromSymbsPoss - 1, curInPassword - 1);
+
+    }
 
 
 
-
-
+}
 
 
 
