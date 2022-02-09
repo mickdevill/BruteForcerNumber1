@@ -21,10 +21,12 @@ private:
     void initSymbs();
 
 private:
-    void bruteItHead();
+    int bruteItHead();
 
 private:
-    void bruteItBody(int charFromSymbsPoss, int curInPassword);
+    int bruteItBody(int charFromSymbsPoss, int curInPassword);
+
+private: void bruteItManin();
 
 private:
     void initPasword();

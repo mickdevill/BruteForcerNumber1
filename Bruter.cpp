@@ -41,7 +41,7 @@ Bruter::Bruter(int length, bool ALLonBeCarefullYouCanBurnYourCPU) {
     //     std::cout << this->symbs[i] << '\n';
     // }
 
-    bruteItHead();
+    bruteItManin();
 }
 
 void Bruter::initSymbs() {
@@ -110,7 +110,7 @@ void Bruter::initPasword() {
 
 }
 
-void Bruter::bruteItHead() {
+int Bruter::bruteItHead() {
 
     int charFromSymbsPoss = this->charFromSymbsInPasword.size() - 1;
     int curInPassword = this->pasword.size() - 1;
@@ -138,15 +138,26 @@ void Bruter::bruteItHead() {
     } else {
         this->charFromSymbsInPasword[charFromSymbsPoss - 1]++;
         this->charFromSymbsInPasword[charFromSymbsPoss] = 0;
-         bruteItBody(charFromSymbsPoss - 1, curInPassword - 1);
+        bruteItBody(charFromSymbsPoss - 1, curInPassword - 1);
+    }
+
+}
+
+void Bruter::bruteItManin() {
+
+    int charFromSymbsPoss = this->charFromSymbsInPasword.size() - 1;
+    int curInPassword = this->pasword.size() - 1;
+
+    while (true) {
+
+        bruteItHead();
+        continue;
     }
 
 
 }
 
-
-void Bruter::bruteItBody(int charFromSymbsPoss,int curInPassword){
-
+int Bruter::bruteItBody(int charFromSymbsPoss, int curInPassword) {
 
 
     if (this->charFromSymbsInPasword[charFromSymbsPoss] <= this->symbs.size() - 1) {
@@ -165,16 +176,15 @@ void Bruter::bruteItBody(int charFromSymbsPoss,int curInPassword){
         }
         std::cout << '\n';
 
-       bruteItHead();
+        return 0;
 
     } else {
         this->charFromSymbsInPasword[charFromSymbsPoss - 1]++;
         this->charFromSymbsInPasword[charFromSymbsPoss] = 0;
-       std::cout << "it Work";
-       bruteItBody(charFromSymbsPoss - 1, curInPassword - 1);
+        std::cout << "it Work";
+        return bruteItBody(charFromSymbsPoss - 1, curInPassword - 1);
 
     }
-
 
 
 }
